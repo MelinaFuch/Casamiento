@@ -152,6 +152,7 @@ if (move_uploaded_file($imageFile['tmp_name'], $uploadFile)) {
 $response['success'] = false;
 $response['message'] = 'Método de solicitud no válido.';
 }
+  }}
 
 // Return the response as JSON
 echo json_encode($response);
