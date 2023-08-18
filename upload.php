@@ -1,4 +1,5 @@
 <?php
+   phpinfo();
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $response = array();
   $mysqli = new mysqli('containers-us-west-164.railway.app', 'root', '8H0iRm6syjENvHCHS7Fr', 'railway');
