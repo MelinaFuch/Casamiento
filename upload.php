@@ -170,8 +170,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } else {
       $response['success'] = false;
       $response['message'] = 'No se ha seleccionado ninguna imagen.';
+      // Return the response as JSON
+      echo json_encode($response);
     }}
 
-// Return the response as JSON
-echo json_encode($response);
 ?>
