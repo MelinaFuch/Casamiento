@@ -45,7 +45,7 @@ function previewImage(event) {
   
     setTimeout(function() {
       container.removeChild(alertDiv);
-      location.reload();
+    //   location.reload();
     }, 700);
   }
   
