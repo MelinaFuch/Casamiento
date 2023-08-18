@@ -111,13 +111,13 @@ function previewImage(event) {
   
         if (data.message == "No se encontró la imagen en la base de datos.") {
           // Recargar la página si la imagen no se encontró en la base de datos
-          location.reload();
+        //   location.reload();
         }
         }
       })
       .catch(error => {
         console.log(error)
-        location.reload();
+        // location.reload();
       });
     }
   }
