@@ -94,35 +94,65 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $response['success'] = false;
         $response['message'] = 'La imagen ya existe.';
       } else {
-        // Mover el archivo solo si no existe ya en la carpeta
-        if (move_uploaded_file($imageFile['tmp_name'], $uploadFile)) {
-          $mysqli = new mysqli('containers-us-west-164.railway.app', 'root', '8H0iRm6syjENvHCHS7Fr', 'railway');
+//         // Mover el archivo solo si no existe ya en la carpeta
+//         if (move_uploaded_file($imageFile['tmp_name'], $uploadFile)) {
+//           $mysqli = new mysqli('containers-us-west-164.railway.app', 'root', '8H0iRm6syjENvHCHS7Fr', 'railway');
 
-          if ($mysqli->connect_errno) {
-            $response['success'] = false;
-            $response['message'] = 'Hubo un error al conectar a la base de datos.';
-          } else {
-            $path = mysqli_real_escape_string($mysqli, $uploadFile);
-            $query = "INSERT INTO imagenes (ruta) VALUES ('$path')";
-            $mysqli->query($query);
+//           if ($mysqli->connect_errno) {
+//             $response['success'] = false;
+//             $response['message'] = 'Hubo un error al conectar a la base de datos.';
+//           } else {
+//             $path = mysqli_real_escape_string($mysqli, $uploadFile);
+//             $query = "INSERT INTO imagenes (ruta) VALUES ('$path')";
+//             $mysqli->query($query);
 
-            $response['success'] = true;
-            $response['message'] = 'La imagen se ha subido y guardado correctamente.';
-          }
-        } else {
-          $response['success'] = false;
-          $response['message'] = 'Hubo un error al subir la imagen.';
-        }
-      }
+//             $response['success'] = true;
+//             $response['message'] = 'La imagen se ha subido y guardado correctamente.';
+//           }
+//         } else {
+//           $response['success'] = false;
+//           $response['message'] = 'Hubo un error al subir la imagen.';
+//         }
+//       }
+//     }
+//   } else {
+//     $response['success'] = false;
+//     $response['message'] = 'No se ha seleccionado ninguna imagen.';
+//   }
+// } else {
+//   $response['success'] = false;
+//   $response['message'] = 'Método de solicitud no válido.';
+// }
+
+// echo json_encode($response);
+
+if (move_uploaded_file($imageFile['tmp_name'], $uploadFile)) {
+    $mysqli = new mysqli('containers-us-west-164.railway.app', 'root', '8H0iRm6syjENvHCHS7Fr', 'railway');
+
+    if ($mysqli->connect_errno) {
+      $response['success'] = false;
+      $response['message'] = 'Hubo un error al conectar a la base de datos.';
+    } else {
+      $path = mysqli_real_escape_string($mysqli, $uploadFile);
+      $query = "INSERT INTO imagenes (ruta) VALUES ('$path')";
+      $mysqli->query($query);
+
+      $response['success'] = true;
+      $response['message'] = 'La imagen se ha subido y guardado correctamente.';
     }
   } else {
     $response['success'] = false;
-    $response['message'] = 'No se ha seleccionado ninguna imagen.';
+    $response['message'] = 'Hubo un error al subir la imagen.';
   }
 } else {
   $response['success'] = false;
-  $response['message'] = 'Método de solicitud no válido.';
+  $response['message'] = 'No se ha seleccionado ninguna imagen.';
+}
+} else {
+$response['success'] = false;
+$response['message'] = 'Método de solicitud no válido.';
 }
 
+// Return the response as JSON
 echo json_encode($response);
 ?>
