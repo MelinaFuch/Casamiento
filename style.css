@@ -1,0 +1,48 @@
+body {
+    background-color: rgb(26, 188, 156);
+  }
+  
+  .title {
+    background-color: whitesmoke;
+    text-align: center;
+  }
+  
+  .subtitle {
+    text-align: center;
+  }
+  
+  .alert-container {
+    text-align: center;
+    margin-top: .5em;
+    font-size: 1.1em;
+    color: #ffffff;
+  }
+  
+  #gallery {
+    margin-top: 2em;
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    grid-gap: 10px;
+  }
+  
+  .image-container {
+    position: relative;
+    text-align: center;
+  }
+  
+  .image-container img {
+    max-width: 100%;
+    height: auto;
+  }
+  
+  .image-container button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: #c60a0a;
+    font-size: .7em;
+    color: #ffffff;
+    border: none;
+    padding: 2px 4px;
+    cursor: pointer;
+  }
