@@ -1,6 +1,6 @@
 <?php
-$response = array();
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+    $response = array();
   $mysqli = new mysqli('containers-us-west-164.railway.app', 'root', '8H0iRm6syjENvHCHS7Fr', 'railway');
   if ($mysqli->connect_errno) {
     $response['success'] = false;
@@ -24,6 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
   exit;
 }
 if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
+    $response = array();
   parse_str(file_get_contents("php://input"), $data);
   $imageId = intval($data['imageId']);
   $mysqli = new mysqli('containers-us-west-164.railway.app', 'root', '8H0iRm6syjENvHCHS7Fr', 'railway');
@@ -61,6 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
   exit;
 }
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $response = array();
     if (isset($_FILES['image'])) {
       $imageFile = $_FILES['image'];  
       if (getimagesize($imageFile['tmp_name']) === false) {
@@ -96,12 +98,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
       }
     } else {
+        $response = array();
       $response['success'] = false;
       $response['message'] = 'No se ha seleccionado ninguna imagen.';
       // Return the response as JSON
     }
     echo json_encode($response);
 }else {
+    $response = array();
     $response['success'] = false;
     $response['message'] = 'Método de solicitud no válido.';
   }
