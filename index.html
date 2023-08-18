@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Nos Casamos</title>
+  <meta charset="utf-8">
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <link rel="shortcut icon" href="favicon.ico" />
+</head>
+<body>
+  <h1 class="title">&iexcl;Leonor & Ezequiel!</h1>
+  <h2 class="subtitle">nos casamos, compartí tu recuerdo</h2>
+  <form 
+  action="upload.php" 
+    method="POST" 
+    enctype="multipart/form-data" 
+    onsubmit="uploadImage(event)" 
+    id="imageForm">
+    <input 
+    type="file" 
+    name="image" 
+    id="imageInput" 
+    accept="image/*" 
+    onchange="previewImage(event)">
+    <input 
+    type="submit" 
+    value="Subir imagen">
+  </form>
+  <img 
+  id="imagePreview" 
+  src="#" 
+  alt="Vista previa de la imagen" 
+  height="350px">
+  <div class="alert-container"></div>
+  <script src="script.js"></script>
+  <div id="gallery"></div>
+</body>
+</html>
