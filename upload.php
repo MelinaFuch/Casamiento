@@ -74,26 +74,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
   exit;
 }
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-  if (isset($_FILES['image'])) {
-    $imageFile = $_FILES['image'];
+// if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+//   if (isset($_FILES['image'])) {
+//     $imageFile = $_FILES['image'];
 
-    if (getimagesize($imageFile['tmp_name']) === false) {
-      $response['success'] = false;
-      $response['message'] = 'Hubo un error al subir la imagen. Formato de archivo no válido.';
-    } else {
-      $uploadDirectory = "uploads/";
-      if (!file_exists($uploadDirectory)) {
-        mkdir($uploadDirectory, 0777, true);
-      }
+//     if (getimagesize($imageFile['tmp_name']) === false) {
+//       $response['success'] = false;
+//       $response['message'] = 'Hubo un error al subir la imagen. Formato de archivo no válido.';
+//     } else {
+//       $uploadDirectory = "uploads/";
+//       if (!file_exists($uploadDirectory)) {
+//         mkdir($uploadDirectory, 0777, true);
+//       }
 
-      $uploadFile = $uploadDirectory . basename($imageFile['name']);
+//       $uploadFile = $uploadDirectory . basename($imageFile['name']);
 
-      // Verificar si el archivo ya existe en la carpeta "uploads"
-      if (file_exists($uploadFile)) {
-        $response['success'] = false;
-        $response['message'] = 'La imagen ya existe.';
-      } else {
+//       // Verificar si el archivo ya existe en la carpeta "uploads"
+//       if (file_exists($uploadFile)) {
+//         $response['success'] = false;
+//         $response['message'] = 'La imagen ya existe.';
+//       } else {
 //         // Mover el archivo solo si no existe ya en la carpeta
 //         if (move_uploaded_file($imageFile['tmp_name'], $uploadFile)) {
 //           $mysqli = new mysqli('containers-us-west-164.railway.app', 'root', '8H0iRm6syjENvHCHS7Fr', 'railway');
@@ -126,33 +126,51 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 // echo json_encode($response);
 
-if (move_uploaded_file($imageFile['tmp_name'], $uploadFile)) {
-    $mysqli = new mysqli('containers-us-west-164.railway.app', 'root', '8H0iRm6syjENvHCHS7Fr', 'railway');
 
-    if ($mysqli->connect_errno) {
-      $response['success'] = false;
-      $response['message'] = 'Hubo un error al conectar a la base de datos.';
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if (isset($_FILES['image'])) {
+      $imageFile = $_FILES['image'];
+  
+      if (getimagesize($imageFile['tmp_name']) === false) {
+        $response['success'] = false;
+        $response['message'] = 'Hubo un error al subir la imagen. Formato de archivo no válido.';
+      } else {
+        $uploadDirectory = "uploads/";
+        if (!file_exists($uploadDirectory)) {
+          mkdir($uploadDirectory, 0777, true);
+        }
+  
+        $uploadFile = $uploadDirectory . basename($imageFile['name']);
+  
+        // Verificar si el archivo ya existe en la carpeta "uploads"
+        if (file_exists($uploadFile)) {
+          $response['success'] = false;
+          $response['message'] = 'La imagen ya existe.';
+        } else {
+          if (move_uploaded_file($imageFile['tmp_name'], $uploadFile)) {
+            $mysqli = new mysqli('containers-us-west-164.railway.app', 'root', '8H0iRm6syjENvHCHS7Fr', 'railway');
+  
+            if ($mysqli->connect_errno) {
+              $response['success'] = false;
+              $response['message'] = 'Hubo un error al conectar a la base de datos.';
+            } else {
+              $path = mysqli_real_escape_string($mysqli, $uploadFile);
+              $query = "INSERT INTO imagenes (ruta) VALUES ('$path')";
+              $mysqli->query($query);
+  
+              $response['success'] = true;
+              $response['message'] = 'La imagen se ha subido y guardado correctamente.';
+            }
+          } else {
+            $response['success'] = false;
+            $response['message'] = 'Hubo un error al subir la imagen.';
+          }
+        }
+      }
     } else {
-      $path = mysqli_real_escape_string($mysqli, $uploadFile);
-      $query = "INSERT INTO imagenes (ruta) VALUES ('$path')";
-      $mysqli->query($query);
-
-      $response['success'] = true;
-      $response['message'] = 'La imagen se ha subido y guardado correctamente.';
-    }
-  } else {
-    $response['success'] = false;
-    $response['message'] = 'Hubo un error al subir la imagen.';
-  }
-} else {
-  $response['success'] = false;
-  $response['message'] = 'No se ha seleccionado ninguna imagen.';
-}
-} else {
-$response['success'] = false;
-$response['message'] = 'Método de solicitud no válido.';
-}
-  }}
+      $response['success'] = false;
+      $response['message'] = 'No se ha seleccionado ninguna imagen.';
+    }}
 
 // Return the response as JSON
 echo json_encode($response);
