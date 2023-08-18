@@ -4,7 +4,7 @@ header('Content-Type: application/json');
 $response = array();
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-  $mysqli = new mysqli('localhost', 'root', '', 'casamiento');
+  $mysqli = new mysqli('containers-us-west-164.railway.app', 'root', '8H0iRm6syjENvHCHS7Fr', 'railway');
 
   if ($mysqli->connect_errno) {
     $response['success'] = false;
@@ -35,7 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
   parse_str(file_get_contents("php://input"), $data);
   $imageId = intval($data['imageId']);
 
-  $mysqli = new mysqli('localhost', 'root', '', 'casamiento');
+  $mysqli = new mysqli('containers-us-west-164.railway.app', 'root', '8H0iRm6syjENvHCHS7Fr', 'railway');
 
   if ($mysqli->connect_errno) {
     $response['success'] = false;
@@ -96,7 +96,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       } else {
         // Mover el archivo solo si no existe ya en la carpeta
         if (move_uploaded_file($imageFile['tmp_name'], $uploadFile)) {
-          $mysqli = new mysqli('localhost', 'root', '', 'casamiento');
+          $mysqli = new mysqli('containers-us-west-164.railway.app', 'root', '8H0iRm6syjENvHCHS7Fr', 'railway');
 
           if ($mysqli->connect_errno) {
             $response['success'] = false;
