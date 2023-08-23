@@ -157,7 +157,7 @@ function previewImage(event) {
   
   // Eliminar una imagen de la base de datos
   function deleteImage(imageId, imageContainer) {
-    const id = Number(imageId)
+    // const id = Number(imageId)
     
     const confirmDelete = confirm('¿Estás seguro de que quieres eliminar esta imagen?');
     if (confirmDelete) {
@@ -166,7 +166,7 @@ function previewImage(event) {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         },
-        body: `imageId=${id}`
+        body: `imageId=${imageId}`
       })
       .then(response => response.json())
       .then(data => {
