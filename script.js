@@ -177,7 +177,7 @@ function previewImage(event) {
           }
         } else {
           console.log(data.message);
-          
+          console.log ({imageId})          
   
         if (data.message == "No se encontró la imagen en la base de datos.") {
           // Recargar la página si la imagen no se encontró en la base de datos
