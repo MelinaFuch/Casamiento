@@ -160,7 +160,7 @@ function previewImage(event) {
     
     const confirmDelete = confirm('¿Estás seguro de que quieres eliminar esta imagen?');
     if (confirmDelete) {
-      fetch(`/upload`, {
+      fetch(`'https://casamiento-production-ffeb.up.railway.app/upload'`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
