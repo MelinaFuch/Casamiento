@@ -166,7 +166,7 @@ function previewImage(event) {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         },
-        body: `imageId=${imageId}`
+        body: imageId
       })
       .then(response => response.json())
       .then(data => {
@@ -177,7 +177,7 @@ function previewImage(event) {
           }
         } else {
           console.log(data.message);
-          console.log ({imageId})          
+          console.log ({imageId})
   
         if (data.message == "No se encontró la imagen en la base de datos.") {
           // Recargar la página si la imagen no se encontró en la base de datos
