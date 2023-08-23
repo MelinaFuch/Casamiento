@@ -57,8 +57,9 @@ app.get('/upload', async (req, res) => {
   }
 });
 
-app.delete('/upload/:imageId', async (req, res) => {
-  const imageId = req.params.imageId;
+app.delete('/upload', async (req, res) => {
+  // const imageId = req.params.imageId;
+  const imageId = req.body;
   
   try {
     const image = await Image.findById(imageId);
