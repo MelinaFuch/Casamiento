@@ -1,3 +1,0 @@
-routes:
-  - handle: casamiento-production-b740.up.railway.app/upload.php
-    method: POST

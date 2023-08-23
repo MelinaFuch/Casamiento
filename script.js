@@ -13,27 +13,57 @@ function previewImage(event) {
     }
   }
   
-  function uploadImage(event) {
+  async function uploadImage(event) {
     event.preventDefault();
     const form = event.target;
+    console.log(form)
   
-    const xhr = new XMLHttpRequest();
-    xhr.open(form.method, form.action);
+    try {
+      const formData = new FormData(form);
+      const response = await fetch('http://localhost:3000/upload', {
+        method: 'POST',
+        body: formData,
+      });
   
-    xhr.onload = function() {
-      if (xhr.status === 200) {
-        const response = JSON.parse(xhr.responseText);
-        updateAlert(response.message, "success"); 
+      if (response.ok) {
+        const responseData = await response.json();
+        updateAlert(responseData.message, "success");
   
         form.reset();
         document.querySelector("#imagePreview").src = "#";
       } else {
-        updateAlert("Error al subir la imagen", "error"); 
+        updateAlert("Error al subir la imagen", "error");
       }
-    };
-  
-    xhr.send(new FormData(form));
+    } catch (error) {
+      console.error('Error al subir la imagen:', error);
+      updateAlert("Error al subir la imagen", "error");
+    }
   }
+
+//   document.addEventListener('DOMContentLoaded', () => {
+//     const form = document.getElementById('imageForm');
+//     form.addEventListener('submit', async (event) => {
+//         event.preventDefault();
+
+//         const formData = new FormData(form);
+//         try {
+//             const response = await fetch('/upload', {
+//                 method: 'POST',
+//                 body: formData,
+//             });
+
+//             const responseData = await response.json();
+//             if (response.ok) {
+//                 console.log(responseData.message);
+//             } else {
+//                 console.error('Error:', responseData.message);
+//             }
+//         } catch (error) {
+//             console.error('Error en la solicitud:', error);
+//         }
+//     });
+// });
+  
   
   function updateAlert(message, alertType) {
     const alertDiv = document.createElement("div");
@@ -50,8 +80,40 @@ function previewImage(event) {
   }
   
   // Obtener las imágenes de la base de datos y renderizar la galería
+  // function getImages() {
+  //   fetch('/upload', {
+  //     method: 'GET'
+  //   })
+  //   .then(response => response.json())
+  //   .then(data => {
+  //     if (data.success) {
+  //       const gallery = document.getElementById('gallery');
+        
+  //       data.images.forEach(image => {
+  //         const imageContainer = document.createElement('div');
+  //         imageContainer.className = 'image-container';
+  
+  //         const imgElement = document.createElement('img');
+  //         imgElement.src = image.ruta;
+          
+  //         const deleteButton = document.createElement('button');
+  //         deleteButton.textContent = 'x';
+  //         deleteButton.addEventListener('click', () => deleteImage(image.id, imageContainer));
+          
+  //         imageContainer.appendChild(imgElement);
+  //         imageContainer.appendChild(deleteButton);
+          
+  //         gallery.appendChild(imageContainer);
+  //       });     
+  //     } else {
+  //       console.log(data.message);
+  //     }
+  //   })
+  //   .catch(error => console.log(error));
+  // }
+
   function getImages() {
-    fetch('upload.php', {
+    fetch('http://localhost:3000/upload', {  // Cambio aquí: usa la ruta correcta en tu servidor
       method: 'GET'
     })
     .then(response => response.json())
@@ -82,6 +144,7 @@ function previewImage(event) {
     .catch(error => console.log(error));
   }
   
+  
   // Llamar a la función para obtener las imágenes al cargar la página
   getImages();
   
@@ -91,7 +154,7 @@ function previewImage(event) {
     
     const confirmDelete = confirm('¿Estás seguro de que quieres eliminar esta imagen?');
     if (confirmDelete) {
-      fetch('upload.php', {
+      fetch(`/upload`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
