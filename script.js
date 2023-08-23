@@ -20,7 +20,10 @@ function previewImage(event) {
   
     try {
       const formData = new FormData(form);
-      const response = await fetch('http://localhost:3000/upload', {
+      const response = await fetch(
+        'containers-us-west-154.railway.app/upload'
+        // 'http://localhost:3000/upload'
+      , {
         method: 'POST',
         body: formData,
       });
@@ -113,7 +116,10 @@ function previewImage(event) {
   // }
 
   function getImages() {
-    fetch('http://localhost:3000/upload', {  // Cambio aquí: usa la ruta correcta en tu servidor
+    fetch(
+      'containers-us-west-154.railway.app/upload'
+      // 'http://localhost:3000/upload'
+      , {  // Cambio aquí: usa la ruta correcta en tu servidor
       method: 'GET'
     })
     .then(response => response.json())
