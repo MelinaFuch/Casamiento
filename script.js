@@ -136,7 +136,8 @@ function previewImage(event) {
           
           const deleteButton = document.createElement('button');
           deleteButton.textContent = 'x';
-          deleteButton.addEventListener('click', () => deleteImage(image.id, imageContainer));
+          deleteButton.addEventListener('click', () => deleteImage(image._id, imageContainer));
+          console.log(image._id)
           
           imageContainer.appendChild(imgElement);
           imageContainer.appendChild(deleteButton);
