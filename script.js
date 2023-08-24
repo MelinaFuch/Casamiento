@@ -1,17 +1,38 @@
+// function previewImage(event) {
+//     const input = event.target;
+//     const preview = document.querySelector("#imagePreview");
+  
+//     if (input.files && input.files[0]) {
+//       const reader = new FileReader();
+  
+//       reader.onload = function (e) {
+//         preview.src = e.target.result;
+//       };
+  
+//       reader.readAsDataURL(input.files[0]);
+//     }
+//   }
+
+document.getElementById('button_select').addEventListener('click', function() {
+  document.getElementById('imageInput').click(); // Simular un clic en el input de imagen oculto
+});
+
 function previewImage(event) {
-    const input = event.target;
-    const preview = document.querySelector("#imagePreview");
+  const input = event.target;
+  const preview = document.querySelector("#imagePreview");
   
-    if (input.files && input.files[0]) {
-      const reader = new FileReader();
+  if (input.files && input.files[0]) {
+    const reader = new FileReader();
   
-      reader.onload = function (e) {
-        preview.src = e.target.result;
-      };
+    reader.onload = function (e) {
+      preview.src = e.target.result;
+    };
   
-      reader.readAsDataURL(input.files[0]);
-    }
+    reader.readAsDataURL(input.files[0]);
   }
+}
+
+
   
   async function uploadImage(event) {
     event.preventDefault();
@@ -42,30 +63,6 @@ function previewImage(event) {
       updateAlert("Error al subir la imagen", "error");
     }
   }
-
-//   document.addEventListener('DOMContentLoaded', () => {
-//     const form = document.getElementById('imageForm');
-//     form.addEventListener('submit', async (event) => {
-//         event.preventDefault();
-
-//         const formData = new FormData(form);
-//         try {
-//             const response = await fetch('/upload', {
-//                 method: 'POST',
-//                 body: formData,
-//             });
-
-//             const responseData = await response.json();
-//             if (response.ok) {
-//                 console.log(responseData.message);
-//             } else {
-//                 console.error('Error:', responseData.message);
-//             }
-//         } catch (error) {
-//             console.error('Error en la solicitud:', error);
-//         }
-//     });
-// });
   
   
   function updateAlert(message, alertType) {

@@ -4,13 +4,17 @@
   <title>Nos Casamos</title>
   <meta charset="utf-8">
   <link rel="stylesheet" type="text/css" href="style.css">
-  <!-- <link rel="shortcut icon" href="favicon.ico" /> -->
   <!-- action="/upload" -->
 </head>
 <body>
-  <h1 class="title">&iexcl;Leonor & Ezequiel!</h1>
-  <h2 class="subtitle">nos casamos, compartí tu recuerdo</h2>
-  <form 
+  <div class="container_title">
+      <img class="icon" id="bride" src="./img/bride.png" alt="bride">
+      <h1 class="title">&iexcl;Leonor & Ezequiel!</h1>
+      <img class="icon" id="groom" src="./img/groom.png" alt="groom">
+  </div>
+  <h2 class="subtitle">Nos casamos, compartí tu recuerdo</h2>
+  <form
+    class="form"
     method="POST" 
     enctype="multipart/form-data" 
     onsubmit="uploadImage(event)" 
@@ -21,14 +25,19 @@
     id="imageInput" 
     accept="image/*" 
     onchange="previewImage(event)">
+    <button id="button_select" type="button">
+      <h3 class="text_upload">Seleccionar imagen</h3>
+      <img class="upload" src="./img/upload.png" alt="">
+    </button>
     <input 
+    class="submit"
     type="submit" 
     value="Subir imagen">
   </form>
   <img 
   id="imagePreview" 
   src="#" 
-  alt="Vista previa de la imagen" 
+  alt="" 
   height="350px">
   <div class="alert-container"></div>
   <script src="script.js"></script>
