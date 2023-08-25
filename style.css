@@ -48,20 +48,6 @@ body {
     display: none;
   }
   
-  #button_select {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    border-radius: 2em;
-    border: none;
-    margin-left: 3em;
-    padding: 0 1em;
-    font-size: .8em;
-    font-family: 'IBM Plex Serif', serif;
-    
-  }
-  
   .upload {
     margin-left: 1em;
     height: 2em;
@@ -111,6 +97,27 @@ body {
     border: none;
     padding: 2px 4px;
     cursor: pointer;
+  }
+
+  .image button {
+    margin-left: 1em;
+    background-color: #fff;
+    color: black;
+    font-family: 'IBM Plex Serif', serif;
+    font-size: 1em;
+    padding: 0.5em 1em;
+    border-radius: 1.5em;
+  }
+  
+  .image button:hover,
+  .image button:focus {
+    margin-left: 1em;
+    background-color: #fff;
+    color: black;
+    font-family: 'IBM Plex Serif', serif;
+    font-size: 1em;
+    padding: 0.5em 1em;
+    border-radius: 1.5em;
   }
   
   @media (max-width: 600px) {
