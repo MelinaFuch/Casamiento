@@ -1,68 +1,42 @@
-// function previewImage(event) {
-//     const input = event.target;
-//     const preview = document.querySelector("#imagePreview");
-  
-//     if (input.files && input.files[0]) {
-//       const reader = new FileReader();
-  
-//       reader.onload = function (e) {
-//         preview.src = e.target.result;
-//       };
-  
-//       reader.readAsDataURL(input.files[0]);
-//     }
-//   }
+const widget = uploadcare.Widget('[role=uploadcare-uploader]');
 
-document.getElementById('button_select').addEventListener('click', function() {
-  document.getElementById('imageInput').click(); // Simular un clic en el input de imagen oculto
-});
-
-function previewImage(event) {
-  const input = event.target;
-  const preview = document.querySelector("#imagePreview");
-  
-  if (input.files && input.files[0]) {
-    const reader = new FileReader();
-  
-    reader.onload = function (e) {
-      preview.src = e.target.result;
-    };
-  
-    reader.readAsDataURL(input.files[0]);
-  }
+async function updateSelectedFile() {
+  selectedFile = await widget.value();
+  return selectedFile.cdnUrl;
 }
 
 
-  
-  async function uploadImage(event) {
-    event.preventDefault();
-    const form = event.target;
-    console.log(form)
-  
-    try {
-      const formData = new FormData(form);
-      const response = await fetch(
-        'https://casamiento-production-ffeb.up.railway.app/upload'
-        // 'http://localhost:3000/upload'
-      , {
-        method: 'POST',
-        body: formData,
-      });
-  
-      if (response.ok) {
-        const responseData = await response.json();
-        updateAlert(responseData.message, "success");
-  
-        form.reset();
-        document.querySelector("#imagePreview").src = "#";
-      } else {
-        updateAlert("Error al subir la imagen", "error");
-      }
-    } catch (error) {
-      console.error('Error al subir la imagen:', error);
+async function uploadImage(event) {
+  event.preventDefault();
+  try {
+    const imageUrl = await updateSelectedFile()
+    console.log("Imagen a cargar",imageUrl)
+    const response = await fetch(
+      'https://casamiento-production-ffeb.up.railway.app/upload'
+      // 'http://localhost:3000/upload'
+    , {
+      method: 'POST',
+      headers: {
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({ ruta: imageUrl }),
+    });
+
+    if (response.ok) {
+      const responseData = await response.json();
+      updateAlert(responseData.message, "success");
+
+      form.reset();
+      document.querySelector("#imagePreview").src = "#";
+    } else {
       updateAlert("Error al subir la imagen", "error");
     }
+  } catch (error) {
+    console.log('Error al subir la imagen:', error);
+    updateAlert("Error al subir la imagen", "error");
   }
+}
+    const form = document.forms.imageForm;
   
   
   function updateAlert(message, alertType) {
@@ -75,48 +49,15 @@ function previewImage(event) {
   
     setTimeout(function() {
       container.removeChild(alertDiv);
-    //   location.reload();
+      location.reload();
     }, 700);
   }
-  
-  // Obtener las imágenes de la base de datos y renderizar la galería
-  // function getImages() {
-  //   fetch('/upload', {
-  //     method: 'GET'
-  //   })
-  //   .then(response => response.json())
-  //   .then(data => {
-  //     if (data.success) {
-  //       const gallery = document.getElementById('gallery');
-        
-  //       data.images.forEach(image => {
-  //         const imageContainer = document.createElement('div');
-  //         imageContainer.className = 'image-container';
-  
-  //         const imgElement = document.createElement('img');
-  //         imgElement.src = image.ruta;
-          
-  //         const deleteButton = document.createElement('button');
-  //         deleteButton.textContent = 'x';
-  //         deleteButton.addEventListener('click', () => deleteImage(image.id, imageContainer));
-          
-  //         imageContainer.appendChild(imgElement);
-  //         imageContainer.appendChild(deleteButton);
-          
-  //         gallery.appendChild(imageContainer);
-  //       });     
-  //     } else {
-  //       console.log(data.message);
-  //     }
-  //   })
-  //   .catch(error => console.log(error));
-  // }
 
   function getImages() {
     fetch(
       'https://casamiento-production-ffeb.up.railway.app/upload'
       // 'http://localhost:3000/upload'
-      , {  // Cambio aquí: usa la ruta correcta en tu servidor
+      , { 
       method: 'GET'
     })
     .then(response => response.json())
@@ -147,28 +88,24 @@ function previewImage(event) {
     })
     .catch(error => console.log(error));
   }
-  
-  
-  // Llamar a la función para obtener las imágenes al cargar la página
+    
   getImages();
   
-  // Eliminar una imagen de la base de datos
   function deleteImage(imageId, imageContainer) {
-    // const id = Number(imageId)
-    
     const confirmDelete = confirm('¿Estás seguro de que quieres eliminar esta imagen?');
     if (confirmDelete) {
-      fetch('https://casamiento-production-ffeb.up.railway.app/upload', {
+      fetch(
+        `https://casamiento-production-ffeb.up.railway.app/upload/${imageId}`
+        // `http://localhost:3000/upload/${imageId}`
+        , {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
-        },
-        body: imageId
+        }
       })
       .then(response => response.json())
       .then(data => {
         if (data.success) {
-          // Eliminar el contenedor de la imagen de la galería
           if (imageContainer) {
             imageContainer.remove();
           }
@@ -177,14 +114,13 @@ function previewImage(event) {
           console.log ({imageId})
   
         if (data.message == "No se encontró la imagen en la base de datos.") {
-          // Recargar la página si la imagen no se encontró en la base de datos
-        //   location.reload();
+          location.reload();
         }
         }
       })
       .catch(error => {
         console.log(error)
-        // location.reload();
+        location.reload();
       });
     }
   }

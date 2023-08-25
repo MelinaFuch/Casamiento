@@ -1,14 +1,14 @@
 const cors = require('cors');
 const mongoose = require('mongoose');
 const express = require('express');
-const path = require('path');
-const fs = require('fs');
-const multer = require('multer');
 
 const app = express();
 const port = process.env.PORT || 3000;
 
-mongoose.connect('mongodb://mongo:R5CLhFjgW7n1jphQjjBr@containers-us-west-154.railway.app:6399', {
+mongoose.connect(
+  'mongodb://mongo:R5CLhFjgW7n1jphQjjBr@containers-us-west-154.railway.app:6399'
+  // 'mongodb+srv://mel:emdzhZ4yYy2qEp2c@cluster0.vwiwifb.mongodb.net/Casamiento'
+  , {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
@@ -19,28 +19,14 @@ db.once('open', () => {
   console.log('Conexión exitosa a MongoDB Atlas');
 });
 
-// Configurar multer para el manejo de archivos
-const storage = multer.diskStorage({
-  destination: 'uploads/',
-  filename: (req, file, cb) => {
-    cb(null, file.originalname);
-  }
-});
-const upload = multer({ storage: storage });
-
-// Cors de prueba
-
 var corsOptions = {
-  origin: "*", // Reemplazar con dominio
-  optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
+  origin: "*",
+  optionsSuccessStatus: 200, 
 };
 app.use(cors(corsOptions));
 
-// Definir rutas y manejadores
-// app.use(cors())
 app.use(express.json());
 
-// Definir el esquema para la colección de imágenes
 const imageSchema = new mongoose.Schema({
   ruta: String,
 });
@@ -57,11 +43,8 @@ app.get('/upload', async (req, res) => {
   }
 });
 
-app.delete('/upload', async (req, res) => {
-  // const imageId = req.params.imageId;
-  const imageId = req.body;
-  console.log("console log del upload",imageId)
-  
+app.delete('/upload/:imageId', async (req, res) => {
+  const imageId = req.params.imageId;  
   try {
     const image = await Image.findById(imageId);
     if (!image) {
@@ -70,11 +53,6 @@ app.delete('/upload', async (req, res) => {
     }
 
     await Image.findByIdAndDelete(imageId);
-    fs.unlink(image.ruta, (err) => {
-      if (err) {
-        console.error('Error deleting image file:', err);
-      }
-    });
     res.json({ success: true, message: 'Image deleted successfully' });
   } catch (err) {
     console.error('Error deleting image:', err);
@@ -82,22 +60,16 @@ app.delete('/upload', async (req, res) => {
   }
 });
 
-app.post('/upload', upload.single('image'), async (req, res) => {
-  if (!req.file) {
-    res.status(400).json({ success: false, message: 'No image file provided' });
-    return;
-  }
-
-  const imagePath = req.file.path;
+app.post('/upload', async (req, res) => {
+  const {ruta} = req.body;
   try {
-    await Image.create({ ruta: imagePath });
+    await Image.create({ ruta: ruta });
     res.json({ success: true, message: 'Image uploaded and saved successfully' });
   } catch (err) {
     console.error('Error inserting image path into the database:', err);
     res.status(500).json({ success: false, message: 'Error inserting image' });
   }
 });
-
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });

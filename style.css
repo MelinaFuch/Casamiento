@@ -1,15 +1,16 @@
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@100&display=swap');
 
 body {
-    background-color: rgb(26, 188, 156);
-    margin: 1em 0;
-
-  }
+  background-color: rgb(26, 188, 156);
+  margin: 0;
   
-  .container_title {
+}
+  
+.container_title {
     display: flex;
     justify-content: center;
     background-color: whitesmoke;
+    padding-top: 1em;
   }
 
   .icon {
@@ -36,16 +37,17 @@ body {
     font-family: 'IBM Plex Serif', serif;
     margin: 0.5em 0 1.5em 0;
   }
-
+  
   .form {
     display: flex;
     justify-content: space-between;
+    height: 3em;
   }
-
+  
   #imageInput {
     display: none;
   }
-
+  
   #button_select {
     display: flex;
     flex-direction: row;
@@ -57,15 +59,15 @@ body {
     padding: 0 1em;
     font-size: .8em;
     font-family: 'IBM Plex Serif', serif;
-
+    
   }
-
+  
   .upload {
     margin-left: 1em;
     height: 2em;
     width: auto;
   }
-
+  
   .submit {
     margin-right: 3em;
     font-size: 1em;
@@ -73,7 +75,7 @@ body {
     border: none;
     padding: 0 1em;
     font-family: 'IBM Plex Serif', serif;
-  }
+  }  
   
   .alert-container {
     text-align: center;
@@ -83,7 +85,7 @@ body {
   }
   
   #gallery {
-    margin: 1em 3em 1em 1em;
+    margin: 2em 3em 1em 1em;
     display: grid;
     grid-template-columns: repeat(10, 1fr);
     grid-gap: 10px;
@@ -110,10 +112,12 @@ body {
     padding: 2px 4px;
     cursor: pointer;
   }
-
-  @media only screen and (max-width: 600px) {
-    #gallery {
-      grid-template-columns: repeat(5, 1fr) !important;
-    }
-  }
   
+  @media (max-width: 600px) {
+    body {
+      background-color: red;
+    }
+    .container_title {
+      background-color: black;
+    }
+  }  

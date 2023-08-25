@@ -4,8 +4,9 @@
   <title>Nos Casamos</title>
   <meta charset="utf-8">
   <link rel="stylesheet" type="text/css" href="style.css">
-  <!-- action="/upload" -->
-</head>
+  <script src="https://ucarecdn.com/libs/widget/3.x/uploadcare.full.min.js"></script>
+
+  </head>
 <body>
   <div class="container_title">
       <img class="icon" id="bride" src="./img/bride.png" alt="bride">
@@ -13,32 +14,48 @@
       <img class="icon" id="groom" src="./img/groom.png" alt="groom">
   </div>
   <h2 class="subtitle">Nos casamos, compartí tu recuerdo</h2>
-  <form
+   <form
     class="form"
     method="POST" 
     enctype="multipart/form-data" 
     onsubmit="uploadImage(event)" 
-    id="imageForm">
-    <input 
+    id="imageForm"
+    name="imageForm"
+  >
+    <input
+    data-images-only="true"
+    data-preview-step="true"
+    data-crop="free"
+    data-clearable="true"
+
+    type="hidden" 
+    role="uploadcare-uploader" 
+    id="imageInput"
+    name="image" 
+    data-public-key="da7189a159abe1a7e2ee"
+  />
+
+    <!-- <input 
     type="file" 
     name="image" 
     id="imageInput" 
     accept="image/*" 
     onchange="previewImage(event)">
-    <button id="button_select" type="button">
-      <h3 class="text_upload">Seleccionar imagen</h3>
+    <button id="button_select" type="button"> -->
+      <!-- <h3 class="text_upload">Seleccionar imagen</h3>
       <img class="upload" src="./img/upload.png" alt="">
-    </button>
+    </button> -->
+    <img
+      id="imagePreview" 
+      src="#" 
+      alt="" 
+      height="150px"
+    >
     <input 
     class="submit"
     type="submit" 
     value="Subir imagen">
   </form>
-  <img 
-  id="imagePreview" 
-  src="#" 
-  alt="" 
-  height="350px">
   <div class="alert-container"></div>
   <script src="script.js"></script>
   <div id="gallery"></div>
