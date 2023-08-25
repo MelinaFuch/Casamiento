@@ -74,7 +74,7 @@ body {
     margin: 2em 3em 1em 1em;
     display: grid;
     grid-template-columns: repeat(10, 1fr);
-    grid-gap: 10px;
+    grid-gap: 5px;
   }
   
   .image-container {
@@ -110,7 +110,7 @@ body {
     color: black;
     font-family: 'IBM Plex Serif', serif;
     font-size: 1em;
-    padding: 0.5em 1em;
+    padding: .8em 1em;
     border-radius: 1.5em;
   }
   
@@ -121,7 +121,7 @@ body {
     color: black;
     font-family: 'IBM Plex Serif', serif;
     font-size: 1em;
-    padding: 0.5em 1em;
+    padding: .8em 1em;
     border-radius: 1.5em;
   }
   
