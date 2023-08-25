@@ -24,7 +24,7 @@ async function uploadImage(event) {
 
     if (response.ok) {
       const responseData = await response.json();
-      updateAlert("Su foro fue subida con éxito", "success");
+      updateAlert("Su foto fue subida con éxito", "success");
 
       form.reset();
       document.querySelector("#imagePreview").src = "#";
@@ -33,7 +33,7 @@ async function uploadImage(event) {
     }
   } catch (error) {
     console.log('Error al subir la foto:', error);
-    updateAlert("Error al subir la foto", "error");
+    updateAlert("Seleccione una foto por favor", "error");
   }
 }
     const form = document.forms.imageForm;

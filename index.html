@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <link rel="stylesheet" type="text/css" href="style.css">
   <script>
-    UPLOADCARE_LOCALE = "es"; // Establece el idioma en español
+    UPLOADCARE_LOCALE = "es";
   </script>
   <script src="https://ucarecdn.com/libs/widget/3.x/uploadcare.full.min.js"></script>
 
@@ -33,24 +33,17 @@
     data-crop="free"
     data-clearable="true"
 
-    type="hidden" 
-    role="uploadcare-uploader" 
     id="imageInput"
-    name="image" 
+
+    type="hidden"
+    role="uploadcare-uploader"
+    name="image"
+    data-tabs="file"
+
+
     data-public-key="da7189a159abe1a7e2ee"
   />
   </div>
-
-    <!-- <input 
-    type="file" 
-    name="image" 
-    id="imageInput" 
-    accept="image/*" 
-    onchange="previewImage(event)">
-    <button id="button_select" type="button"> -->
-      <!-- <h3 class="text_upload">Seleccionar imagen</h3>
-      <img class="upload" src="./img/upload.png" alt="">
-    </button> -->
     <img
       id="imagePreview" 
       src="#" 
