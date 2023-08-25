@@ -99,6 +99,11 @@ body {
     cursor: pointer;
   }
 
+  .image {
+    margin-left: 1em;
+    color: #fff;
+  }
+
   .image button {
     margin-left: 1em;
     background-color: #fff;

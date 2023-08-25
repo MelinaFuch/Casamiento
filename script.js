@@ -24,16 +24,16 @@ async function uploadImage(event) {
 
     if (response.ok) {
       const responseData = await response.json();
-      updateAlert(responseData.message, "success");
+      updateAlert("Su foro fue subida con éxito", "success");
 
       form.reset();
       document.querySelector("#imagePreview").src = "#";
     } else {
-      updateAlert("Error al subir la imagen", "error");
+      updateAlert("Error al subir la foto", "error");
     }
   } catch (error) {
-    console.log('Error al subir la imagen:', error);
-    updateAlert("Error al subir la imagen", "error");
+    console.log('Error al subir la foto:', error);
+    updateAlert("Error al subir la foto", "error");
   }
 }
     const form = document.forms.imageForm;
@@ -50,7 +50,7 @@ async function uploadImage(event) {
     setTimeout(function() {
       container.removeChild(alertDiv);
       location.reload();
-    }, 700);
+    }, 2000);
   }
 
   function getImages() {
