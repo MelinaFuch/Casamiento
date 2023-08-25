@@ -75,7 +75,6 @@ async function uploadImage(event) {
           const deleteButton = document.createElement('button');
           deleteButton.textContent = 'x';
           deleteButton.addEventListener('click', () => deleteImage(image._id, imageContainer));
-          console.log(image._id)
           
           imageContainer.appendChild(imgElement);
           imageContainer.appendChild(deleteButton);
@@ -111,11 +110,6 @@ async function uploadImage(event) {
           }
         } else {
           console.log(data.message);
-          console.log ({imageId})
-  
-        if (data.message == "No se encontró la imagen en la base de datos.") {
-          location.reload();
-        }
         }
       })
       .catch(error => {
