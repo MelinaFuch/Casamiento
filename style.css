@@ -112,6 +112,7 @@ body {
     font-size: 1em;
     padding: .8em 1em;
     border-radius: 1.5em;
+    border: none;
   }
   
   .image button:hover,
@@ -123,6 +124,7 @@ body {
     font-size: 1em;
     padding: .8em 1em;
     border-radius: 1.5em;
+    border: none;
   }
   
   @media (max-width: 600px) {
