@@ -120,7 +120,7 @@ async function uploadImage(event) {
       })
       .catch(error => {
         console.log(error)
-        location.reload();
+        // location.reload();
       });
     }
   }
