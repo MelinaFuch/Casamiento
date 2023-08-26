@@ -1,10 +1,10 @@
+
 const widget = uploadcare.Widget('[role=uploadcare-uploader]');
 
 async function updateSelectedFile() {
   selectedFile = await widget.value();
   return selectedFile.cdnUrl;
 }
-
 
 async function uploadImage(event) {
   event.preventDefault();
@@ -14,20 +14,23 @@ async function uploadImage(event) {
     const response = await fetch(
       'https://casamiento-production-ffeb.up.railway.app/upload'
       // 'http://localhost:3000/upload'
-    , {
-      method: 'POST',
-      headers: {
-    'Content-Type': 'application/json',
-  },
+      , {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
   body: JSON.stringify({ ruta: imageUrl }),
-    });
+});
 
-    if (response.ok) {
+if (response.ok) {
       const responseData = await response.json();
       updateAlert("Su foto fue subida con éxito", "success");
-
+      getImages()
+      
+      const form = document.forms.imageForm;
       form.reset();
-      document.querySelector("#imagePreview").src = "#";
+      const widget = uploadcare.Widget('#imageInput');
+      widget.value(null);
     } else {
       updateAlert("Error al subir la foto", "error");
     }
@@ -36,21 +39,17 @@ async function uploadImage(event) {
     updateAlert("Seleccione una foto por favor", "error");
   }
 }
-    const form = document.forms.imageForm;
-  
-  
   function updateAlert(message, alertType) {
     const alertDiv = document.createElement("div");
     alertDiv.className = `alert ${alertType}`;
     alertDiv.innerHTML = message;
-  
+
     const container = document.querySelector(".alert-container");
     container.appendChild(alertDiv);
-  
+
     setTimeout(function() {
       container.removeChild(alertDiv);
-      location.reload();
-    }, 2000);
+    }, 1200);
   }
 
   function getImages() {
@@ -62,9 +61,12 @@ async function uploadImage(event) {
     })
     .then(response => response.json())
     .then(data => {
-      if (data.success) {
-        const gallery = document.getElementById('gallery');
         
+        if (data.success) {
+          const gallery = document.getElementById('gallery');
+          
+          gallery.innerHTML = '';
+
         data.images.forEach(image => {
           const imageContainer = document.createElement('div');
           imageContainer.className = 'image-container';
@@ -88,8 +90,10 @@ async function uploadImage(event) {
     .catch(error => console.log(error));
   }
     
-  getImages();
-  
+  document.addEventListener('DOMContentLoaded', () => {
+    getImages();
+  });
+
   function deleteImage(imageId, imageContainer) {
     const confirmDelete = confirm('¿Estás seguro de que quieres eliminar esta imagen?');
     if (confirmDelete) {
