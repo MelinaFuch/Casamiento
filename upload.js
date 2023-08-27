@@ -1,14 +1,13 @@
 const cors = require('cors');
 const mongoose = require('mongoose');
 const express = require('express');
+const URI_MONGO = process.env
 
 const app = express();
 const port = process.env.PORT || 3000;
 
 mongoose.connect(
-  'mongodb://mongo:R5CLhFjgW7n1jphQjjBr@containers-us-west-154.railway.app:6399'
-  // 'mongodb+srv://mel:emdzhZ4yYy2qEp2c@cluster0.vwiwifb.mongodb.net/Casamiento'
-  , {
+  URI_MONGO, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
