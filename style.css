@@ -96,20 +96,6 @@ body {
     object-position: center;
   }
   
-  .image-container button {
-    position: absolute;
-    display: inline-flex;
-    justify-content: flex-end;
-    align-items: flex-start;
-    background-color: #c60a0a;
-    font-size: .7em;
-    color: #ffffff;
-    border: none;
-    padding: 2px 4px;
-    right: 4px;
-    cursor: pointer;
-  }
-  
   .image {
     margin-left: 1em;
     color: #fff;
