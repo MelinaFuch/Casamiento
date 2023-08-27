@@ -11,7 +11,7 @@ async function uploadImage(event) {
     const imageUrl = await updateSelectedFile()
     console.log("Imagen a cargar",imageUrl)
     const response = await fetch(
-      'https://casamiento-production-ffeb.up.railway.app/upload'
+      'https://casamiento-production-e973.up.railway.app/upload'
       // 'http://localhost:3000/upload'
       , {
         method: 'POST',
@@ -53,7 +53,7 @@ if (response.ok) {
 
   function getImages() {
     fetch(
-      'https://casamiento-production-ffeb.up.railway.app/upload'
+      'https://casamiento-production-e973.up.railway.app/upload'
       // 'http://localhost:3000/upload'
       , { 
       method: 'GET'
