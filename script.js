@@ -11,11 +11,6 @@ async function uploadImage(event) {
     const imageUrl = await updateSelectedFile()
     console.log("Imagen a cargar",imageUrl)
 
-    if (!imageUrl) {
-      updateAlert("Seleccione una foto", "error");
-      return; // Salir de la función si no es una imagen
-    }
-
     const response = await fetch(
       'https://casamiento-production-e973.up.railway.app/upload'
       // 'http://localhost:3000/upload'
@@ -40,6 +35,18 @@ if (response.ok) {
       updateAlert("Error al subir la foto", "error");
     }
   } catch (error) {
+    const imageUrl = await updateSelectedFile()
+
+    if (!imageUrl) {
+      updateAlert("Seleccione una foto por favor", "error");
+      return
+    }
+
+    if (!isImageFile(imageUrl)) {
+      updateAlert("Solo se permiten imágenes", "error");
+      return
+    }
+
     console.log('Error al subir la foto:', error);
     updateAlert("Error al subir la foto, intentelo nuevamente", "error");
   }
