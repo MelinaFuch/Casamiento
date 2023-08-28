@@ -11,8 +11,8 @@ async function uploadImage(event) {
     const imageUrl = await updateSelectedFile()
     console.log("Imagen a cargar",imageUrl)
 
-    if (!isImageFile(imageUrl)) {
-      updateAlert("Solo se permiten imágenes", "error");
+    if (!imageUrl) {
+      updateAlert("Seleccione una foto", "error");
       return; // Salir de la función si no es una imagen
     }
 
@@ -41,7 +41,7 @@ if (response.ok) {
     }
   } catch (error) {
     console.log('Error al subir la foto:', error);
-    updateAlert("Seleccione una foto por favor", "error");
+    updateAlert("Error al subir la foto, intentelo nuevamente", "error");
   }
 }
   function updateAlert(message, alertType) {
