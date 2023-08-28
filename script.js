@@ -46,9 +46,10 @@ if (response.ok) {
       updateAlert("Solo se permiten imágenes", "error");
       return
     }
-
-    console.log('Error al subir la foto:', error);
-    updateAlert("Error al subir la foto, intentelo nuevamente", "error");
+    else {
+      console.log('Error al subir la foto:', error);
+      updateAlert("Error al subir la foto, intentelo nuevamente", "error");
+    }
   }
 }
   function updateAlert(message, alertType) {
