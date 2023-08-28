@@ -10,6 +10,12 @@ async function uploadImage(event) {
   try {
     const imageUrl = await updateSelectedFile()
     console.log("Imagen a cargar",imageUrl)
+
+    if (!isImageFile(imageUrl)) {
+      updateAlert("Solo se permiten imágenes", "error");
+      return; // Salir de la función si no es una imagen
+    }
+
     const response = await fetch(
       'https://casamiento-production-e973.up.railway.app/upload'
       // 'http://localhost:3000/upload'
