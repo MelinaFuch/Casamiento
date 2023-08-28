@@ -11,6 +11,7 @@ body {
     background-color: whitesmoke;
     margin-top: 1em;
     align-items: center;
+    width: 100vw;
   }
 
   .icon {
@@ -48,21 +49,19 @@ body {
     display: none;
   }
   
-  .upload {
-    margin-left: 1em;
-    height: 2em;
-    width: auto;
-  }
-  
   .submit {
     margin-right: 3em;
     font-size: 1em;
-    border-radius: 2em;
+    border-radius: .5em;
     border: none;
-    padding: 0 1em;
     font-family: 'IBM Plex Serif', serif;
     cursor: pointer;
-  }  
+  }
+
+  .icon_upload {
+    height: 100%;
+    width: 100%;
+  }
   
   .alert-container {
     text-align: center;
