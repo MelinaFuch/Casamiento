@@ -35,21 +35,8 @@ if (response.ok) {
       updateAlert("Error al subir la foto", "error");
     }
   } catch (error) {
-    const imageUrl = await updateSelectedFile()
-
-    if (!imageUrl) {
-      updateAlert("Seleccione una foto por favor", "error");
-      return
-    }
-
-    if (!isImageFile(imageUrl)) {
-      updateAlert("Solo se permiten imágenes", "error");
-      return
-    }
-    else {
       console.log('Error al subir la foto:', error);
-      updateAlert("Error al subir la foto, intentelo nuevamente", "error");
-    }
+      updateAlert("Seleccione una foto por favor", "error");
   }
 }
   function updateAlert(message, alertType) {
