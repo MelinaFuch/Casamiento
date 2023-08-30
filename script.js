@@ -63,20 +63,20 @@ if (response.ok) {
   
           gallery.innerHTML = '';
   
-          data.images.reverse(); // Invert the order of the images
+          data.images.reverse();
   
           data.images.forEach(image => {
             const imageContainer = document.createElement('div');
             imageContainer.className = 'image-container';
   
             const loadingIndicator = document.createElement('div');
-            loadingIndicator.className = 'loading-indicator'; // Use the loading indicator class
+            loadingIndicator.className = 'loading-indicator';
             loadingIndicator.textContent = 'Cargando...';
             imageContainer.appendChild(loadingIndicator);
   
             const imgElement = document.createElement('img');
             imgElement.onload = () => {
-              imageContainer.removeChild(loadingIndicator); // Remove loading indicator after image loads
+              imageContainer.removeChild(loadingIndicator);
             };
             imgElement.src = image.ruta;
   
