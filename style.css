@@ -142,7 +142,7 @@ body {
 
   @media (max-width: 500px) {
     #gallery {
-      margin-top: 1em;
+      margin-top: .5em;
     }
     .title {
       font-size: 1.5em;
@@ -154,20 +154,28 @@ body {
       font-size: .8em;
     }
 
+    .alert-container {
+      font-size: .8em;
+    }
+
     .submit {
       height: 2em;
       font-size: .8em;
     }
 
+    .image {
+      font-size: .7em;
+    }
+
     .image button {
       padding: 0.3em 1em;
-      font-size: .8em;
+      font-size: 1.1em;
     }
   }    
 
   @media (max-width: 350px) {
     .form {
-      height: 2.7em;
+      height: 2em;
     }
 
     .alert-container {
@@ -187,12 +195,20 @@ body {
       font-size: .6em;
     }
 
+    .alert-container {
+      font-size: .6em;
+    }
+
     .submit {
+      font-size: .6em;
+    }
+
+    .image {
       font-size: .6em;
     }
 
     .image button {
       padding: 0.3em 1em;
-      font-size: .6em;
+      font-size: 1em;
     }
   }    
