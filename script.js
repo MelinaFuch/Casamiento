@@ -52,39 +52,6 @@ if (response.ok) {
     }, 1200);
   }
 
-  // function getImages() {
-  //   fetch(
-  //     'https://casamiento-production-e973.up.railway.app/upload'
-  //     // 'http://localhost:3000/upload'
-  //     , { 
-  //     method: 'GET'
-  //   })
-  //   .then(response => response.json())
-  //   .then(data => {
-        
-  //       if (data.success) {
-  //         const gallery = document.getElementById('gallery');
-          
-  //         gallery.innerHTML = '';
-
-  //       data.images.forEach(image => {
-  //         const imageContainer = document.createElement('div');
-  //         imageContainer.className = 'image-container';
-  
-  //         const imgElement = document.createElement('img');
-  //         imgElement.src = image.ruta;
-
-  //         imageContainer.appendChild(imgElement);
-         
-  //         gallery.appendChild(imageContainer);
-  //       });     
-  //     } else {
-  //       console.log(data.message);
-  //     }
-  //   })
-  //   .catch(error => console.log(error));
-  // }
-
   function getImages() {
     fetch('https://casamiento-production-e973.up.railway.app/upload', {
       method: 'GET'
@@ -96,27 +63,33 @@ if (response.ok) {
   
           gallery.innerHTML = '';
   
-          for (let i = data.images.length - 1; i >= 0; i--) {
-            const image = data.images[i];
+          data.images.reverse(); // Invert the order of the images
   
+          data.images.forEach(image => {
             const imageContainer = document.createElement('div');
             imageContainer.className = 'image-container';
   
+            const loadingIndicator = document.createElement('div');
+            loadingIndicator.className = 'loading-indicator'; // Use the loading indicator class
+            loadingIndicator.textContent = 'Cargando...';
+            imageContainer.appendChild(loadingIndicator);
+  
             const imgElement = document.createElement('img');
+            imgElement.onload = () => {
+              imageContainer.removeChild(loadingIndicator); // Remove loading indicator after image loads
+            };
             imgElement.src = image.ruta;
   
             imageContainer.appendChild(imgElement);
-  
             gallery.appendChild(imageContainer);
-          }
+          });
         } else {
           console.log(data.message);
         }
       })
       .catch(error => console.log(error));
   }
-  
-    
+
   document.addEventListener('DOMContentLoaded', () => {
     getImages();
   });
